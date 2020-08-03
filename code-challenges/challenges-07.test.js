@@ -9,11 +9,13 @@ You may choose to complete this challenge using a for loop, for...in syntax, or 
 
 For example, twoToThe([1,2,3]) returns [2,4,8] because 2 ^ 1 = 2, 2 ^ 2 = 4, and 2 ^ 3 = 8.
 ------------------------------------------------------------------------------------------------ */
-
 const forLoopTwoToThe = (arr) => {
-  // Solution code here...
+  let power = []
+  for (let i = 0; i < arr.length; i++) {
+    power.push(2 ** arr[i])
+  }
+  return power
 };
-
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
 
@@ -21,7 +23,11 @@ Write a function named forEachTwoToThe that produces the same output as your for
 ------------------------------------------------------------------------------------------------ */
 
 const forEachTwoToThe = (arr) => {
-  // Solution code here...
+  let power = []
+  arr.forEach((value) => {
+    power.push(2 ** value)
+  })
+  return power
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -31,7 +37,10 @@ Write a function named mapTwoToThe that produces the same output as your forLoop
 ------------------------------------------------------------------------------------------------ */
 
 const mapTwoToThe = (arr) => {
-  // Solution code here...
+  let power = arr.map((value) => {
+    return (2 ** value)
+  })
+  return power
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -45,9 +54,12 @@ For example: charCode(['h','i']) returns [104, 105].
 ------------------------------------------------------------------------------------------------ */
 
 const charCode = (arr) => {
-  // Solution code here...
-};
 
+  const char = arr.map((value) => {
+    return (value.charCodeAt())
+  })
+  return char
+};
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5
 
@@ -59,8 +71,18 @@ For example: evenOdd([1,2,3]) returns ['odd','even','odd'].
 ------------------------------------------------------------------------------------------------ */
 
 const evenOdd = (arr) => {
-  // Solution code here...
+  let output = arr.map((value) => {
+    if (value % 2 !== 0 && !isNaN(value)) {
+      return 'odd'
+    } else if (value % 2 === 0) {
+      return 'even'
+    } else if (isNaN(value)) {
+      return 'N/A'
+    }
+  })
+  return output
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6
@@ -105,7 +127,10 @@ const snorlaxAbilities = {
 };
 
 const extractAbilities = (arr) => {
-  // Solution code here...
+  let names = arr.map((value) => {
+    return value.ability.name
+  })
+  return names
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -152,7 +177,13 @@ const snorlaxStats = {
 };
 
 const extractStats = (arr) => {
-  // Solution code here...
+  const namesTotal = arr.map((value) => {
+    let finalObj = {}
+    finalObj.name = value.stat.name
+    finalObj.total = value.effort + value.baseStat
+    return finalObj
+  })
+  return namesTotal
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -201,29 +232,29 @@ describe('Testing challenge 3', () => {
 
 describe('Testing challenge 4', () => {
   test('It should return an array containing the character code for each letter', () => {
-    expect(charCode(['C', 'o', 'd', 'e', '3', '0', '1'])).toStrictEqual([ 67, 111, 100, 101, 51, 48, 49 ]);
+    expect(charCode(['C', 'o', 'd', 'e', '3', '0', '1'])).toStrictEqual([67, 111, 100, 101, 51, 48, 49]);
     expect(charCode(['C', 'o', 'd', 'e', '3', '0', '1']).length).toStrictEqual(7);
   });
 });
 
 describe('Testing challenge 5', () => {
   test('It should return an array containing the keys from an object', () => {
-    expect(evenOdd([5, 8, 2, 6, 9, 13, 542, 541])).toStrictEqual([ 'odd', 'even', 'even', 'even', 'odd', 'odd', 'even', 'odd' ]);
+    expect(evenOdd([5, 8, 2, 6, 9, 13, 542, 541])).toStrictEqual(['odd', 'even', 'even', 'even', 'odd', 'odd', 'even', 'odd']);
     expect(evenOdd([5, 8, 2, 6, 9, 13, 542, 541]).length).toStrictEqual(8);
   });
 
   test('It should work with all odd numbers', () => {
-    expect(evenOdd([1, 3, 5, 7, 9])).toStrictEqual([ 'odd', 'odd', 'odd', 'odd', 'odd' ]);
+    expect(evenOdd([1, 3, 5, 7, 9])).toStrictEqual(['odd', 'odd', 'odd', 'odd', 'odd']);
     expect(evenOdd([1, 3, 5, 7, 9]).length).toStrictEqual(5);
   });
 
   test('It should work with all even numbers', () => {
-    expect(evenOdd([2, 4, 6, 8, 10])).toStrictEqual([ 'even', 'even', 'even', 'even', 'even' ]);
+    expect(evenOdd([2, 4, 6, 8, 10])).toStrictEqual(['even', 'even', 'even', 'even', 'even']);
     expect(evenOdd([2, 4, 6, 8, 10]).length).toStrictEqual(5);
   });
 
   test('It should return the string "N/A" if a non-number is included in the array', () => {
-    expect(evenOdd([5, 8, 2, 'hi'])).toStrictEqual([ 'odd', 'even', 'even', 'N/A' ]);
+    expect(evenOdd([5, 8, 2, 'hi'])).toStrictEqual(['odd', 'even', 'even', 'N/A']);
     expect(evenOdd([5, 8, 2, 'hi']).length).toStrictEqual(4);
   });
 });
