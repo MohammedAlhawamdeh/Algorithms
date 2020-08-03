@@ -14,7 +14,7 @@ const courseInfo = {
 };
 
 const getCourseKeys = (obj) => {
-  // Solution code here...
+  return Object.keys(obj)
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -71,7 +71,9 @@ let characters = [
 
 const getHouses = (arr) => {
   let houses = [];
-  // Solution code here...
+  for (let i = 0; i < arr.length; i++) {
+    houses.push(characters[i].house)
+  }
   return houses;
 };
 
@@ -88,9 +90,17 @@ hasChildrenValues(characters, 'Sansa') will return false
 ------------------------------------------------------------------------------------------------ */
 
 const hasChildrenValues = (arr, character) => {
-  // Solution code here...
-
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].name === character) {
+      if (Object.values(arr[i].children).length === 0) {
+        return false
+      } else {
+        return true
+      }
+    }
+  }
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 4
@@ -101,7 +111,15 @@ The input and output of this function are the same as the input and output from 
 ------------------------------------------------------------------------------------------------ */
 
 const hasChildrenEntries = (arr, character) => {
-  // Solution code here...
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].name === character) {
+      if (Object.entries(arr[i].children).length === 0) {
+        return false
+      } else {
+        return true
+      }
+    }
+  }
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -111,9 +129,14 @@ Write a function named totalCharacters that takes in an array and returns the nu
 ------------------------------------------------------------------------------------------------ */
 
 const totalCharacters = (arr) => {
-  // Solution code here...
+  var sum = 0;
+  arr.forEach((character, i) => {
+    sum += 1;
+    if (character.spouse != null) sum += 1;
+    sum += character.children.length;
+  });
+  return sum;
 };
-
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6 - Stretch Goal
 
@@ -126,7 +149,19 @@ For example: [{ house: 'Stark', members: 7 }, { house: 'Arryn', members: 3 }, ..
 
 const houseSize = (arr) => {
   const sizes = [];
-  // Solution code here...
+  for (let i = 0; i < arr.length; i++) {
+    let finalObj = {}
+    finalObj.house = arr[i].house
+    let childrenNumber = arr[i].children.length + 1
+    if (arr[i].spouse !== null) {
+      childrenNumber++
+      finalObj.members = childrenNumber
+    } else {
+
+      finalObj.members = 1
+    }
+    sizes.push(finalObj)
+  }
   return sizes;
 };
 
@@ -150,7 +185,13 @@ const deceasedSpouses = ['Catelyn', 'Lysa', 'Robert', 'Khal Drogo', 'Alerie'];
 
 const houseSurvivors = (arr) => {
   const survivors = [];
-  // Solution code here...
+  for (let i = 0; i < arr.length; i++) {
+    let finalObj = {}
+    finalObj.house = arr[i].house
+    let childrenNumber = arr[i].children.length + 1
+    finalObj.members = childrenNumber
+    survivors.push(finalObj)
+  }
   return survivors;
 };
 
